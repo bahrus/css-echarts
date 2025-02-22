@@ -10,7 +10,25 @@
     </script>
 </head>
 <body>
-    <css-echarts show-labels show-primary-axis show-data-axes>
+    <css-echarts show-labels show-primary-axis show-data-axes options='
+    {
+        "title": {
+          "text": "ECharts Getting Started Example"
+        },
+        "tooltip": {},
+        "xAxis": {
+          "data": ["shirt", "cardigan", "chiffon", "pants", "heels", "socks"]
+        },
+        "yAxis": {},
+        "series": [
+          {
+            "name": "sales",
+            "type": "bar",
+            "data": [5, 20, 36, 10, 10, 20]
+          }
+        ]
+      }
+    '>
         <table>
             <caption> Column Example #4 </caption>
             <thead>

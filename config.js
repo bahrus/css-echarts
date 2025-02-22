@@ -6,5 +6,19 @@ import {config as baseConfig} from 'css-charts/config.js';
  * @type {MntCfg<AllProps & MountProps, Actions & MountActions>}
  */
 export const config = {
-    ...baseConfig
+    ...baseConfig,
+    propInfo: {
+        ...baseConfig.propInfo,
+        options: {
+            type: 'Object',
+            attrName: 'options',
+            parse: true,
+        }
+    },
+    actions: {
+        ...baseConfig.actions,
+        hydrateECharts: {
+            ifAllOf: ['options', 'data'],
+        }
+    }
 }
