@@ -41,7 +41,13 @@ class CSSECharts extends CSSCharts {
                 firstSeries.type = 'bar';
                 if(!options.xAxis){
                     options.xAxis = {
-                        type: 'category',
+                        type: chartType === 'bar' ? 'value' : 'category',
+                        data: data.map(x => x.key)
+                    }
+                }
+                if(!options.yAxis){
+                    options.yAxis = {
+                        type: chartType === 'bar' ? 'category' : 'value',
                         data: data.map(x => x.key)
                     }
                 }
