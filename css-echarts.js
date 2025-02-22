@@ -23,7 +23,23 @@ class CSSECharts extends CSSCharts {
     async hydrateECharts(self) {
         setTimeout(async () => {
         console.log('hydrating');
-        const {options} = self;
+        const {options, chartType} = self;
+        const {series} = options;
+        if(series === undefined) throw 500;
+        switch(chartType){
+            case 'pie':
+                series[0].type = 'pie';
+                break;
+            case 'line':
+                series[0].type = 'line';
+                break;
+            case 'bar':
+                series[0].type = 'bar';
+                break;
+            default:
+                throw 500;
+        }
+        
         const echarts = await import('echarts/dist/echarts.esm.js');
         const sr = this.shadowRoot;
         if(sr === null) throw 500;
@@ -34,9 +50,11 @@ class CSSECharts extends CSSCharts {
         if(tableTarget === null) throw 500;
         tableTarget.style.width = '500px';
         tableTarget.style.height = '500px';
-        echarts.init(tableTarget, null, null).setOption(options);
+        echarts.init(tableTarget, null, {
+            renderer: 'svg'
+        }).setOption(options);
 
-        }, 2000);
+        }, 100);
         
     }
 }
