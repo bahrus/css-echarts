@@ -1,5 +1,6 @@
 // @ts-check
 import {CSSCharts} from 'css-charts/css-charts.js';
+import {config} from './config.js';
 
 /** @import {AllProps, Actions, PAP, DataItem} from  './ts-refs/css-echarts/types' */
 /** @import {MntCfg, MountProps, MountActions, ITransformer} from './ts-refs/trans-render/types' */
