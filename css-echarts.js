@@ -23,23 +23,26 @@ class CSSECharts extends CSSCharts {
     async hydrateECharts(self) {
         setTimeout(async () => {
         console.log('hydrating');
-        const {options, chartType} = self;
-        const {series} = options;
-        if(series === undefined) throw 500;
+        const {options, chartType, data} = self;
+        let {series} = options;
+        if(series === undefined) {
+            series = [{}]
+        }
+        const firstSeries = series[0];
         switch(chartType){
             case 'pie':
-                series[0].type = 'pie';
+                firstSeries.type = 'pie';
                 break;
             case 'line':
-                series[0].type = 'line';
+                firstSeries.type = 'line';
                 break;
             case 'bar':
-                series[0].type = 'bar';
+                firstSeries.type = 'bar';
                 break;
             default:
                 throw 500;
         }
-        
+        series[0].data = data.map(x => x.value);
         const echarts = await import('echarts/dist/echarts.esm.js');
         const sr = this.shadowRoot;
         if(sr === null) throw 500;
