@@ -56,10 +56,16 @@ class CSSECharts extends CSSCharts {
         /**
          * @type {HTMLDivElement | null}
          */
+        const table = sr.querySelector('table');
+        if(table === null) throw 500;
+        table.style.display = 'none';
+        /**
+         * @type {HTMLDivElement | null}
+         */
         const tableTarget = sr.querySelector('#table-target');
         if(tableTarget === null) throw 500;
-        tableTarget.style.width = '500px';
-        tableTarget.style.height = '500px';
+        tableTarget.style.width = `${this.clientWidth}px`;
+        tableTarget.style.height = `${this.clientHeight}px`;
         echarts.init(tableTarget, null, {
             renderer: 'svg'
         }).setOption(options);
