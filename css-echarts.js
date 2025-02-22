@@ -36,8 +36,15 @@ class CSSECharts extends CSSCharts {
             case 'line':
                 firstSeries.type = 'line';
                 break;
+            case 'column':
             case 'bar':
                 firstSeries.type = 'bar';
+                if(!options.xAxis){
+                    options.xAxis = {
+                        type: 'category',
+                        data: data.map(x => x.key)
+                    }
+                }
                 break;
             default:
                 throw 500;
