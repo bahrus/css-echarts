@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "trans-render": "0.0.885",
-    "charts.css": "1.1.0"
+    "css-charts": "0.0.3",
+    "echarts": "5.6.0"
   },
   "devDependencies": {
     "@playwright/test": "1.50.1",
@@ -28,7 +29,7 @@
   },
   "license": "MIT",
   "author": "",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js"
 
 }
