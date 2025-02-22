@@ -48,14 +48,14 @@ class CSSECharts extends CSSCharts {
                 if(!options.yAxis){
                     options.yAxis = {
                         type: chartType === 'bar' ? 'category' : 'value',
-                        data: data.map(x => x.key)
+                        data: data.map(x => x.key).reverse()
                     }
                 }
                 break;
             default:
                 throw 500;
         }
-        series[0].data = data.map(x => x.value);
+        series[0].data = chartType === 'bar' ? data.map(x => x.value).reverse() : data.map(x => x.value);
         const echarts = await import('echarts/dist/echarts.esm.js');
         const sr = this.shadowRoot;
         if(sr === null) throw 500;
