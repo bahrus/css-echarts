@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- #include virtual="/imports.html" -->
+    <script type=module>
+        import '/def.js';
+    </script>
+</head>
+<body>
+    <css-echarts style="width:300px;height:300px" 
+        hide-data show-primary-axis show-2-secondary-axes chart-type=pie
+        options='{
+            "title": {
+              "text": "Referer of a Website",
+              "subtext": "Fake Data",
+              "left": "center"
+            },
+            "tooltip": {
+              "trigger": "item"
+            },
+            "legend": {
+              "orient": "vertical",
+              "left": "left"
+            },
+            "series": [
+              {
+                "name": "Access From",
+                "type": "pie",
+                "radius": "50%",
+                "data": [
+                  { "value": 1048, "name": "Search Engine" },
+                  { "value": 735, "name": "Direct" },
+                  { "value": 580, "name": "Email" },
+                  { "value": 484, "name": "Union Ads" },
+                  { "value": 300, "name": "Video Ads" }
+                ],
+                "emphasis": {
+                  "itemStyle": {
+                    "shadowBlur": 10,
+                    "shadowOffsetX": 0,
+                    "shadowColor": "rgba(0, 0, 0, 0.5)"
+                  }
+                }
+              }
+            ]
+          }'
+    >
+        <table>
+            <caption> Column Example #4 </caption>
+            <thead>
+            <tr>
+                <th scope="col">Year</th>
+                <th scope="col">Progress</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr itemscope>
+                    <th itemprop=key>2016</th>
+                    <td><data itemprop=value value=20></data></td>
+                </tr>
+                <tr itemscope>
+                    <th itemprop=key>2017</th>
+                    <td><data itemprop=value value=40></data></td>
+                </tr>
+                <tr itemscope>
+                    <th itemprop=key>2018</th>
+                    <td><data itemprop=value value=60></data></td>
+                </tr>
+                <tr itemscope>
+                    <th itemprop=key>2019</th>
+                    <td><data itemprop=value value=80></data></td>
+                </tr>
+                <tr itemscope>
+                    <th itemprop=key>2020</th>
+                    <td><data itemprop=value value=100></data></td>
+                </tr>
+            </tbody>
+        </table>
+    </css-echarts>
+</body>
+</html>
