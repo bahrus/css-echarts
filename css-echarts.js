@@ -32,6 +32,14 @@ class CSSECharts extends CSSCharts {
         switch(chartType){
             case 'pie':
                 firstSeries.type = 'pie';
+                if(!firstSeries.data){
+                    firstSeries.data = data.map(x => {
+                        return {
+                            name: x.key,
+                            value: x.value
+                        }
+                    });
+                }
                 break;
             case 'line':
                 firstSeries.type = 'line';
@@ -51,11 +59,19 @@ class CSSECharts extends CSSCharts {
                         data: data.map(x => x.key).reverse()
                     }
                 }
+                switch(chartType){
+                    case 'bar':
+                        firstSeries.data = data.map(x => x.value).reverse();
+                        break;
+                    case 'column': 
+                        data.map(x => x.value);
+                        break;
+                }
                 break;
             default:
                 throw 500;
         }
-        series[0].data = chartType === 'bar' ? data.map(x => x.value).reverse() : data.map(x => x.value);
+        
         const echarts = await import('echarts/dist/echarts.esm.js');
         const sr = this.shadowRoot;
         if(sr === null) throw 500;
