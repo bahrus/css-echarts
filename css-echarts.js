@@ -1,6 +1,6 @@
 // @ts-check
-import {CSSCharts} from 'css-charts/css-charts.js';
-import {config} from './config.js';
+import { CSSCharts } from 'css-charts/css-charts.js';
+import { config } from './config.js';
 
 /** @import {AllProps, Actions, PAP, DataItem} from  './ts-refs/css-echarts/types' */
 /** @import {MntCfg, MountProps, MountActions, ITransformer} from './ts-refs/trans-render/types' */
@@ -21,82 +21,81 @@ class CSSECharts extends CSSCharts {
      * @param {AllProps} self 
      */
     async hydrateECharts(self) {
-        setTimeout(async () => {
-        console.log('hydrating');
-        const {options, chartType, data} = self;
-        let {series} = options;
-        if(series === undefined) {
-            series = [{}]
-        }
-        const firstSeries = series[0];
-        switch(chartType){
-            case 'pie':
-                firstSeries.type = 'pie';
-                if(!firstSeries.data){
-                    firstSeries.data = data.map(x => {
-                        return {
-                            name: x.key,
-                            value: x.value
+        requestIdleCallback(async () => {
+            console.log('hydrating');
+            const { options, chartType, data } = self;
+            let { series } = options;
+            if (series === undefined) {
+                series = [{}]
+            }
+            const firstSeries = series[0];
+            switch (chartType) {
+                case 'pie':
+                    firstSeries.type = 'pie';
+                    if (!firstSeries.data) {
+                        firstSeries.data = data.map(x => {
+                            return {
+                                name: x.key,
+                                value: x.value
+                            }
+                        });
+                    }
+                    break;
+                case 'line':
+                    firstSeries.type = 'line';
+                    break;
+                case 'column':
+                case 'bar':
+                    firstSeries.type = 'bar';
+                    if (!options.xAxis) {
+                        options.xAxis = {
+                            type: chartType === 'bar' ? 'value' : 'category',
+                            data: data.map(x => x.key)
                         }
-                    });
-                }
-                break;
-            case 'line':
-                firstSeries.type = 'line';
-                break;
-            case 'column':
-            case 'bar':
-                firstSeries.type = 'bar';
-                if(!options.xAxis){
-                    options.xAxis = {
-                        type: chartType === 'bar' ? 'value' : 'category',
-                        data: data.map(x => x.key)
                     }
-                }
-                if(!options.yAxis){
-                    options.yAxis = {
-                        type: chartType === 'bar' ? 'category' : 'value',
-                        data: data.map(x => x.key).reverse()
+                    if (!options.yAxis) {
+                        options.yAxis = {
+                            type: chartType === 'bar' ? 'category' : 'value',
+                            data: data.map(x => x.key).reverse()
+                        }
                     }
-                }
-                switch(chartType){
-                    case 'bar':
-                        firstSeries.data = data.map(x => x.value).reverse();
-                        break;
-                    case 'column': 
-                        data.map(x => x.value);
-                        break;
-                }
-                break;
-            default:
-                throw 500;
-        }
-        
-        const echarts = await import('echarts/dist/echarts.esm.js');
-        const sr = this.shadowRoot;
-        if(sr === null) throw 500;
-        /**
-         * @type {HTMLDivElement | null}
-         */
-        const table = sr.querySelector('table');
-        if(table === null) throw 500;
-        table.style.display = 'none';
-        /**
-         * @type {HTMLDivElement | null}
-         */
-        const tableTarget = sr.querySelector('#table-target');
-        if(tableTarget === null) throw 500;
-        tableTarget.style.width = `${this.clientWidth}px`;
-        tableTarget.style.height = `${this.clientHeight}px`;
-        echarts.init(tableTarget, null, {
-            renderer: 'svg'
-        }).setOption(options);
+                    switch (chartType) {
+                        case 'bar':
+                            firstSeries.data = data.map(x => x.value).reverse();
+                            break;
+                        case 'column':
+                            data.map(x => x.value);
+                            break;
+                    }
+                    break;
+                default:
+                    throw 500;
+            }
 
-        }, 100);
-        
+            const echarts = await import('echarts/dist/echarts.esm.js');
+            const sr = this.shadowRoot;
+            if (sr === null) throw 500;
+            /**
+             * @type {HTMLDivElement | null}
+             */
+            const table = sr.querySelector('table');
+            if (table === null) throw 500;
+            table.style.display = 'none';
+            /**
+             * @type {HTMLDivElement | null}
+             */
+            const tableTarget = sr.querySelector('#table-target');
+            if (tableTarget === null) throw 500;
+            tableTarget.style.width = `${this.clientWidth}px`;
+            tableTarget.style.height = `${this.clientHeight}px`;
+            echarts.init(tableTarget, null, {
+                renderer: 'svg'
+            }).setOption(options);
+        });
+
     }
 }
 
 await CSSECharts.bootUp();
 
-export {CSSECharts};
+export { CSSECharts };
