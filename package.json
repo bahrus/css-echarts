@@ -7,8 +7,8 @@
     "url": "https://github.com/bahrus/css-echarts/issues"
   },
   "dependencies": {
-    "trans-render": "0.0.885",
-    "css-charts": "0.0.3",
+    "trans-render": "0.0.886",
+    "css-charts": "0.0.5",
     "echarts": "5.6.0"
   },
   "devDependencies": {
